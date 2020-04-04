@@ -16,7 +16,13 @@
 }
 .keyboard{
     width: 700px;
+    height: 200px;
     border: 1px solid #000000;
     border-radius: 5px;
     background-color: red;
+}
+.button{
+    width: 10px;
+    height: 10px;
+    margin: 10px;
 }
