@@ -7,7 +7,6 @@
 }
 
 .field-enter{
-
     margin: 20px 0;
     width: 700px;
     height: 300px;
@@ -15,14 +14,57 @@
     padding: 10px;
 }
 .keyboard{
-    width: 700px;
-    height: 200px;
+    width: 900px;
+    height: 100%;
     border: 1px solid #000000;
+    padding: 8px;
     border-radius: 5px;
-    background-color: red;
+    background: #888888;
+}
+.lines{
+    display: flex;
+    margin-bottom: 8px;
+    justify-content: space-between;
+}
+.lines:last-child{
+    margin-bottom: 0;
 }
 .button{
-    width: 10px;
-    height: 10px;
-    margin: 10px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #222222;
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+    padding: 5px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    background: #222222;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.button:hover{
+    cursor: pointer;
+    border: 1px solid #33BF77;
+    background: #33BF77;
+    transition: 0.5s;
+}
+.active{
+    border: 1px solid #00FF61;
+    background: #00FF61 !important;
+    border-radius: 50%;
+    transition: 0.1s !important;
+}
+.func-button{
+    width: 100px;
+}
+.space{
+    width: 430px;
 }
