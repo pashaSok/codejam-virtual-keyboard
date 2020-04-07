@@ -30,11 +30,9 @@
     margin-bottom: 0;
 }
 .button{
-
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,7 +57,7 @@
 .active{
     border: 1px solid #00FF61;
     background: #00FF61 !important;
-    border-radius: 50%;
+    border-radius: 20px;
     transition: 0.1s !important;
 }
 .func-button{
