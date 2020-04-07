@@ -2,28 +2,69 @@ let body = document.getElementsByTagName('body')[0];
 
 
 const keys = [
-	[{ value: '`', valueShift: '~', code: 192 }, { value: '1', valueShift: '!', code: 49 }, { value: '2', valueShift: '@', code: 50 },
-	{ value: '3', valueShift: '#', code: 51 }, { value: '4', valueShift: '$', code: 52 }, { value: '5', valueShift: '%', code: 53 },
-	{ value: '6', valueShift: '^', code: 54 }, { value: '7', valueShift: '&', code: 55 }, { value: '8', valueShift: '*', code: 56 },
-	{ value: '9', valueShift: '(', code: 57 }, { value: '0', valueShift: ')', code: 48 }, { value: '-', valueShift: '_', code: 189 },
-	{ value: '=', valueShift: '+', code: 187 }, { value: 'Backspace', code: 8 }],
-	[{ value: 'Tab', code: 9 }, { value: 'q', valueShift: 'Q', code: 81 }, { value: 'w', valueShift: 'W', code: 87 },
-	{ value: 'e', valueShift: 'E', code: 69 }, { value: 'r', valueShift: 'R', code: 82 }, { value: 't', valueShift: 'T', code: 84 },
-	{ value: 'y', valueShift: 'Y', code: 89 }, { value: 'u', valueShift: 'U', code: 85 }, { value: 'i', valueShift: 'I', code: 73 },
-	{ value: 'o', valueShift: 'O', code: 79 }, { value: 'p', valueShift: 'P', code: 80 }, { value: '[', valueShift: '{', code: 219 },
-	{ value: ']', valueShift: '}', code: 221 }, { value: '\\', valueShift: '|', code: 220 }, { value: 'Del', code: 46 }],
-	[{ value: 'Caps Lock', code: 20 }, { value: 'a', valueShift: 'A', code: 65 }, { value: 's', valueShift: 'S', code: 83 },
-	{ value: 'd', valueShift: 'D', code: 68 }, { value: 'f', valueShift: 'F', code: 70 }, { value: 'g', valueShift: 'G', code: 71 },
-	{ value: 'h', valueShift: 'H', code: 72 }, { value: 'j', valueShift: 'J', code: 74 }, { value: 'k', valueShift: 'K', code: 75 },
-	{ value: 'l', valueShift: 'L', code: 76 }, { value: ';', valueShift: ':', code: 186 }, { value: '\'', valueShift: '"', code: 222 },
+	[{ value: '`', valueShift: '~', code: 192}, 
+	{ value: '1', valueShift: '!', code: 49 }, 
+	{ value: '2', valueShift: '@', code: 50 },
+	{ value: '3', valueShift: '#', code: 51 }, 
+	{ value: '4', valueShift: '$', code: 52 }, 
+	{ value: '5', valueShift: '%', code: 53 },
+	{ value: '6', valueShift: '^', code: 54 }, 
+	{ value: '7', valueShift: '&', code: 55 }, 
+	{ value: '8', valueShift: '*', code: 56 },
+	{ value: '9', valueShift: '(', code: 57 }, 
+	{ value: '0', valueShift: ')', code: 48 }, 
+	{ value: '-', valueShift: '_', code: 189 },
+	{ value: '=', valueShift: '+', code: 187 }, 
+	{ value: 'Backspace', code: 8 }],
+	[{ value: 'Tab', code: 9 }, 
+	{ value: 'q', valueShift: 'Q', code: 81 }, 
+	{ value: 'w', valueShift: 'W', code: 87 },
+	{ value: 'e', valueShift: 'E', code: 69 }, 
+	{ value: 'r', valueShift: 'R', code: 82 }, 
+	{ value: 't', valueShift: 'T', code: 84 },
+	{ value: 'y', valueShift: 'Y', code: 89 }, 
+	{ value: 'u', valueShift: 'U', code: 85 }, 
+	{ value: 'i', valueShift: 'I', code: 73 },
+	{ value: 'o', valueShift: 'O', code: 79 }, 
+	{ value: 'p', valueShift: 'P', code: 80 }, 
+	{ value: '[', valueShift: '{', code: 219 },
+	{ value: ']', valueShift: '}', code: 221 }, 
+	{ value: '\\', valueShift: '|', code: 220 }, 
+	{ value: 'Del', code: 46 }],
+	[{ value: 'Caps Lock', code: 20 }, 
+	{ value: 'a', valueShift: 'A', code: 65 }, 
+	{ value: 's', valueShift: 'S', code: 83 },
+	{ value: 'd', valueShift: 'D', code: 68 }, 
+	{ value: 'f', valueShift: 'F', code: 70 }, 
+	{ value: 'g', valueShift: 'G', code: 71 },
+	{ value: 'h', valueShift: 'H', code: 72 }, 
+	{ value: 'j', valueShift: 'J', code: 74 }, 
+	{ value: 'k', valueShift: 'K', code: 75 },
+	{ value: 'l', valueShift: 'L', code: 76 }, 
+	{ value: ';', valueShift: ':', code: 186 }, 
+	{ value: '\'', valueShift: '"', code: 222 },
 	{ value: 'Enter', code: 13 }],
-	[{ value: 'Shift', code: 'ShiftLeft', location: 1 }, { value: 'z', valueShift: 'Z', code: 90 }, { value: 'x', valueShift: 'X', code: 88 },
-	{ value: 'c', valueShift: 'C', code: 67 }, { value: 'v', valueShift: 'V', code: 86 }, { value: 'b', valueShift: 'B', code: 66 },
-	{ value: 'n', valueShift: 'N', code: 78 }, { value: 'm', valueShift: 'M', code: 77 }, { value: ',', valueShift: '<', code: 188 },
-	{ value: '.', valueShift: '>', code: 190 }, { value: '/', valueShift: '?', code: 186 }, { value: '▲', code: 38 }, { value: 'Shift', code: "ShiftRight", location: 2 }],
-	[{ value: 'Ctrl', code: 17, location: 1 }, { value: 'Win', code: 91 }, { value: 'Alt', code: 18, location: 1 }, { value: ' ', code: 32 },
-	{ value: 'Alt', code: 18, location: 2 }, { value: '◄', code: 37 }, { value: '▼', code: 40 }, { value: '►', code: 39 },
-	{ value: 'Ctrl', code: 17, location: 2 }]
+	[{ value: 'Shift', code: 'ShiftLeft'}, 
+	{ value: 'z', valueShift: 'Z', code: 90 }, 
+	{ value: 'x', valueShift: 'X', code: 88 },
+	{ value: 'c', valueShift: 'C', code: 67 }, 
+	{ value: 'v', valueShift: 'V', code: 86 }, 
+	{ value: 'b', valueShift: 'B', code: 66 },
+	{ value: 'n', valueShift: 'N', code: 78 }, 
+	{ value: 'm', valueShift: 'M', code: 77 }, 
+	{ value: ',', valueShift: '<', code: 188 },
+	{ value: '.', valueShift: '>', code: 190 }, 
+	{ value: '/', valueShift: '?', code: 186 }, 
+	{ value: '▲', code: 38 }, 
+	{ value: 'Shift', code: "ShiftRight" }],
+	[{ value: 'Ctrl', code: 'ControlLeft' }, 
+	{ value: 'Win', code: 91 }, 
+	{ value: 'Alt', code: 'AltLeft'  }, 
+	{ value: ' ', code: 32 },
+	{ value: 'Alt', code: 'AltRight'}, 
+	{ value: '◄', code: 37 }, { value: '▼', code: 40 },
+	 { value: '►', code: 39 },
+	{ value: 'Ctrl', code: 'ControlRight'}]
 ];
 
 
@@ -54,19 +95,24 @@ function changeShiftReturn() {
 	});
 };
 
-let isCaps = false;
+
+var isCaps=false;
 
 function changeCaps() {
 	document.querySelectorAll('.button').forEach(function (el, i) {
 		el.textContent = keys.flat()[i].value.toUpperCase();
-		isCaps = true;
+		if (keys.flat()[i].valueShift == null) {
+			el.textContent = keys.flat()[i].value;
+		}
 	});
+	isCaps =true;
 };
+
 function changeCapsReturn() {
 	document.querySelectorAll('.button').forEach(function (el, i) {
 		el.textContent = keys.flat()[i].value;
-		isCaps = false;
 	});
+	isCaps=false;
 };
 
 keys.forEach(line => {
@@ -92,14 +138,22 @@ keys.forEach(line => {
 				textArea.value += '  ';
 			}
 			else if (key.code == 8) {
-				textArea.value = textArea.value.slice(0, -1);
+				textArea.value = textArea.value.slice(0,selectionStart);
+				textArea.setCursorPosition(textArea.selectionStart);
 			}
 			else if (key.code == 20) {
-				button.classList.add('active');
+				if(isCaps == false){
+					changeCaps();
+				}
+				else if(isCaps == true){
+					changeCapsReturn();
+				}
 			}
-			else if (key.code == 16) {
-				button.classList.add('active');
-				changeShift();
+			else if(e.code == "ShiftLeft"){
+				changeCaps();
+			}
+			else if(e.code == "ShiftRight"){
+				changeCaps();
 			}
 			else if (key.code == 17) {
 				button.classList.add('active');
@@ -115,21 +169,29 @@ keys.forEach(line => {
 				button.classList.add('active');
 			}
 			else if (key.code == 46) {
-				textArea.value = textArea.value.slice(0, -1);
+				textArea.value = textArea.value.slice(selectionStart,1);
+				textArea.setCursorPosition(textArea.selectionStart);
 			}
 			else {
-				textArea.value += key.value;
+				textArea.value += button.textContent;
 			}
 		});
 		button.addEventListener('mouseup', (e) => {
-			button.classList.remove('active');
-			if(e.keyCode == 16){
-				changeShiftReturn();
-			}
+				button.classList.remove('active');
+				if(e.code=="ShiftLeft"){
+					changeCapsReturn();
+				}
+				else if(e.code == "ShiftRight"){
+					changeCapsReturn();
+				}
 		});
 
-		window.addEventListener('keydown', (e) => {
+
+
+
+		document.addEventListener('keydown', (e) => {
 			if (button.id == e.keyCode || button.id == e.code) {
+				textArea.blur();
 				button.classList.add('active');
 				if (key.code == 9) {
 					event.preventDefault();
@@ -138,19 +200,37 @@ keys.forEach(line => {
 				else if(e.code == "ShiftLeft"){
 					changeCaps();
 				}
+				else if(e.code == "ShiftRight"){
+					changeCaps();
+				}
 				else if (key.code == 8) {
-					textArea.value = textArea.value.slice(0, -1);
+					textArea.focus();
+					textArea.value = textArea.value.slice(0,selectionStart);
+					textArea.setCursorPosition(textArea.selectionStart);
 				}
 				else if (key.code == 20) {
+					if(isCaps == false){
+						changeCaps();
+					}
+					else if(isCaps == true){
+						changeCapsReturn();
+					}
+				}
+				else if (e.code=="ControlLeft") {
 					button.classList.add('active');
 				}
-				else if (key.code == 17) {
+				else if (e.code=="ControlRight") {
 					button.classList.add('active');
 				}
 				else if (key.code == 91) {
 					button.classList.add('active');
 				}
-				else if (key.code == 18) {
+				else if (e.code=="AltLeft") {
+					event.preventDefault();
+					button.classList.add('active');
+				}
+				else if (e.code=="AltRight") {
+					event.preventDefault();
 					button.classList.add('active');
 				}
 				else if (key.code == 13) {
@@ -158,16 +238,29 @@ keys.forEach(line => {
 					button.classList.add('active');
 				}
 				else if (key.code == 46) {
-					textArea.value = textArea.value.slice(0, -1);
+					textArea.focus();
+					textArea.value = textArea.value.slice(selectionStart,1);
+					textArea.setCursorPosition(textArea.selectionStart);
 				}
 				else {
-					textArea.value += key.value;
+					textArea.value += button.textContent;
+				}
+
+				if(key.code==37 || key.code == 38 || key.code == 39 || key.code==40){
+					event.preventDefault();
 				}
 			}
 		});
-		window.addEventListener('keyup', (e) => {
+
+		document.addEventListener('keyup', (e) => {
 			if (button.id == e.keyCode || button.id == e.code) {
 				button.classList.remove('active');
+				if(e.code=="ShiftLeft"){
+					changeCapsReturn();
+				}
+				else if(e.code == "ShiftRight"){
+					changeCapsReturn();
+				}
 			}
 		});
 	});
