@@ -2,22 +2,22 @@ let body = document.getElementsByTagName('body')[0];
 
 
 const keys = [
-	[{ value: '`', valueShift: '~', code: 192}, 
-	{ value: '1', valueShift: '!', code: 49 }, 
-	{ value: '2', valueShift: '@', code: 50 },
-	{ value: '3', valueShift: '#', code: 51 }, 
-	{ value: '4', valueShift: '$', code: 52 }, 
-	{ value: '5', valueShift: '%', code: 53 },
-	{ value: '6', valueShift: '^', code: 54 }, 
-	{ value: '7', valueShift: '&', code: 55 }, 
-	{ value: '8', valueShift: '*', code: 56 },
-	{ value: '9', valueShift: '(', code: 57 }, 
-	{ value: '0', valueShift: ')', code: 48 }, 
-	{ value: '-', valueShift: '_', code: 189 },
-	{ value: '=', valueShift: '+', code: 187 }, 
+	[{ value: '`', valueShift: '~', code: 192,valueRu :'`'}, 
+	{ value: '1', valueShift: '!', code: 49,valueRu :'1' }, 
+	{ value: '2', valueShift: '@', code: 50,valueRu :'2' },
+	{ value: '3', valueShift: '#', code: 51,valueRu :'3' }, 
+	{ value: '4', valueShift: '$', code: 52 ,valueRu :'4'}, 
+	{ value: '5', valueShift: '%', code: 53 ,valueRu :'5'},
+	{ value: '6', valueShift: '^', code: 54 ,valueRu :'6'}, 
+	{ value: '7', valueShift: '&', code: 55 ,valueRu :'7'}, 
+	{ value: '8', valueShift: '*', code: 56 ,valueRu :'8'},
+	{ value: '9', valueShift: '(', code: 57 ,valueRu :'9'}, 
+	{ value: '0', valueShift: ')', code: 48 ,valueRu :'0'}, 
+	{ value: '-', valueShift: '_', code: 189 ,valueRu :'-'},
+	{ value: '=', valueShift: '+', code: 187 ,valueRu :'='}, 
 	{ value: 'Backspace', code: 8 }],
 	[{ value: 'Tab', code: 9 }, 
-	{ value: 'q', valueShift: 'Q', code: 81 }, 
+	{ value: 'q', valueShift: 'Q', code: 81 ,valueRu :'й'}, 
 	{ value: 'w', valueShift: 'W', code: 87 },
 	{ value: 'e', valueShift: 'E', code: 69 }, 
 	{ value: 'r', valueShift: 'R', code: 82 }, 
@@ -98,6 +98,7 @@ function changeShiftReturn() {
 
 var isCaps=false;
 
+
 function changeCaps() {
 	document.querySelectorAll('.button').forEach(function (el, i) {
 		el.textContent = keys.flat()[i].value.toUpperCase();
@@ -115,6 +116,18 @@ function changeCapsReturn() {
 	isCaps=false;
 };
 
+var lang = 'en';
+
+function changeLang(){
+	document.querySelectorAll('.button').forEach(function (el, i) {
+		el.textContent = keys.flat()[i].valueRu;
+		if (keys.flat()[i].valueShift == null) {
+			el.textContent = keys.flat()[i].value;
+		}
+	});
+	lang ='ru';
+}
+
 keys.forEach(line => {
 	let lines = document.createElement('div');
 	keyboardWrapper.appendChild(lines);
@@ -125,69 +138,12 @@ keys.forEach(line => {
 		button.setAttribute('class', 'button');
 		button.setAttribute('id', key.code);
 		button.textContent = key.value;
-		button.setAttribute('Data',location);
 		if (key.code == 8 || key.code == 20 || key.code == "ShiftLeft" || key.code == "ShiftRight" || key.code == 13) {
 			button.classList.add('func-button');
 		}
 		if (key.code == 32) {
 			button.classList.add('space');
 		}
-		button.addEventListener('mousedown', (e) => {
-			button.classList.add('active');
-			if (key.code == 9) {
-				textArea.value += '  ';
-			}
-			else if (key.code == 8) {
-				textArea.value = textArea.value.slice(0,selectionStart);
-				textArea.setCursorPosition(textArea.selectionStart);
-			}
-			else if (key.code == 20) {
-				if(isCaps == false){
-					changeCaps();
-				}
-				else if(isCaps == true){
-					changeCapsReturn();
-				}
-			}
-			else if(e.code == "ShiftLeft"){
-				changeCaps();
-			}
-			else if(e.code == "ShiftRight"){
-				changeCaps();
-			}
-			else if (key.code == 17) {
-				button.classList.add('active');
-			}
-			else if (key.code == 91) {
-				button.classList.add('active');
-			}
-			else if (key.code == 18) {
-				button.classList.add('active');
-			}
-			else if (key.code == 13) {
-				textArea.value += '\n';
-				button.classList.add('active');
-			}
-			else if (key.code == 46) {
-				textArea.value = textArea.value.slice(selectionStart,1);
-				textArea.setCursorPosition(textArea.selectionStart);
-			}
-			else {
-				textArea.value += button.textContent;
-			}
-		});
-		button.addEventListener('mouseup', (e) => {
-				button.classList.remove('active');
-				if(e.code=="ShiftLeft"){
-					changeCapsReturn();
-				}
-				else if(e.code == "ShiftRight"){
-					changeCapsReturn();
-				}
-		});
-
-
-
 
 		document.addEventListener('keydown', (e) => {
 			if (button.id == e.keyCode || button.id == e.code) {
@@ -195,7 +151,7 @@ keys.forEach(line => {
 				button.classList.add('active');
 				if (key.code == 9) {
 					event.preventDefault();
-					textArea.value += '  ';
+					textArea.value += '\t';
 				}
 				else if(e.code == "ShiftLeft"){
 					changeCaps();
@@ -242,6 +198,9 @@ keys.forEach(line => {
 					textArea.value = textArea.value.slice(selectionStart,1);
 					textArea.setCursorPosition(textArea.selectionStart);
 				}
+				else if(e.keyCode==17 || e.keyCode==16){
+					changeLang();
+				}
 				else {
 					textArea.value += button.textContent;
 				}
@@ -265,3 +224,36 @@ keys.forEach(line => {
 		});
 	});
 });
+
+document.addEventListener('mousedown',(e)=>{
+	e.target.tagName = 'div';
+	if(e.target.className.indexOf('button') !=-1){
+		if(e.target.id == 20){
+			if(isCaps == false){
+				e.target.classList.add('active');
+				changeCaps();
+			}
+			else if(isCaps == true){
+				e.target.classList.remove('active');
+				changeCapsReturn();
+			}
+		}
+		else if (e.target.id == 9){
+			e.target.classList.add('active');
+			textArea.value+='\t';
+		}
+		else if (e.target.id == "ShiftLeft"){
+			e.target.classList.add('active');
+			changeShift();
+		}
+		else {
+			textArea.value+=e.target.textContent;
+		}
+	}
+});
+
+
+
+
+
+
