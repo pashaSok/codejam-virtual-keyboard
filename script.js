@@ -190,6 +190,7 @@ keys.forEach(line => {
 					button.classList.add('active');
 				}
 				else if (key.code == 13) {
+					
 					textArea.value += '\n';
 					button.classList.add('active');
 				}
@@ -202,7 +203,7 @@ keys.forEach(line => {
 					changeLang();
 				}
 				else {
-					textArea.value += button.textContent;
+					addChar(button.textContent);
 				}
 
 				if(key.code==37 || key.code == 38 || key.code == 39 || key.code==40){
@@ -225,6 +226,52 @@ keys.forEach(line => {
 	});
 });
 
+function addChar(e){
+	const startSelection = textArea.selectionStart;
+	const endSelection = textArea.selectionEnd;
+	const textArr = textArea.value.split('');
+	if (textArea.selectionEnd - textArea.selectionStart > 0) {
+		textArr.splice(startSelection, endSelection - startSelection, e);
+		textArea.value = textArr.join('');
+		textArea.selectionEnd = startSelection + e.length;
+	} 
+	else if (textArea.value.length > endSelection) {
+		textArr.splice(endSelection, 0, e);
+		textArea.value = textArr.join('');
+		textArea.selectionEnd = startSelection + e.length;
+		textArea.selectionStart = textArea.selectionEnd;
+	} else {
+		textArea.value += e;
+  }
+}
+function onBackspace() {
+	const startSelection = textArea.selectionStart;
+	const endSelection = textArea.selectionEnd;
+	const textArr = textArea.value.split('');
+	if (endSelection - startSelection > 0) {
+		textArr.splice(startSelection, endSelection - startSelection);
+	} 
+	else {
+		textArr.splice(endSelection - 1, 1);
+	}
+	textArea.value = textArr.join('');
+	textArea.selectionEnd = startSelection - 1;
+};
+
+function onDelete() {
+	const startSelection = textarea.selectionStart;
+	const endSelection = textarea.selectionEnd;
+	const textArr = textarea.value.split('');
+	if (endSelection - startSelection > 0) {
+		textArr.splice(startSelection, endSelection - startSelection);
+	} 
+	else {
+		textArr.splice(endSelection, 1);
+	}
+	textarea.value = textArr.join('');
+	textarea.selectionEnd = startSelection;
+  };
+
 document.addEventListener('mousedown',(e)=>{
 	e.target.tagName = 'div';
 	if(e.target.className.indexOf('button') !=-1){
@@ -242,12 +289,31 @@ document.addEventListener('mousedown',(e)=>{
 			e.target.classList.add('active');
 			textArea.value+='\t';
 		}
-		else if (e.target.id == "ShiftLeft"){
+		else if (e.target.id == "ShiftLeft" || e.target.id == "ShiftRight"){
 			e.target.classList.add('active');
 			changeShift();
 		}
+		else if (e.target.id == "AltLeft" || e.target.id == "AltRight" || e.target.id == "ControlLeft" || e.target.id == "ControlRight"){
+			e.target.classList.add('active');
+		}
+		else if (e.target.id == 13){
+			e.target.classList.add('active');
+			textArea.value+='\n';
+		}
+		else if(e.target.id == 8){
+			e.target.classList.add('active');
+			onBackspace();
+		}
+		else if(e.target.id == 46){
+			e.target.classList.add('active');
+			onDelete();
+		}
+		else if (e.target.id == 91){
+			e.target.classList.add('active');
+		}
 		else {
-			textArea.value+=e.target.textContent;
+			e.target.classList.add('active');
+			addChar(e.target.textContent);
 		}
 	}
 });
