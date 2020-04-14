@@ -1,5 +1,3 @@
-let body = document.getElementsByTagName('body')[0];
-
 const keys = [
 	[{ value: '`', valueShift: '~', code: 192,valueRu :'`', valueShiftRu: 'Ё'}, 
 	{ value: '1', valueShift: '!', code: 49,valueRu :'1' , valueShiftRu: '!'}, 
@@ -66,251 +64,121 @@ const keys = [
 	{ value: 'Ctrl', code: 'ControlRight',valueRu :'Ctrl'}]
 ];
 
-let container = document.createElement('div');
-container.setAttribute('class', 'container');
-body.prepend(container);
 
-let textArea = document.createElement('textarea');
+const body = document.getElementsByTagName('body')[0];
+const textArea = document.createElement('textarea');
 textArea.setAttribute('class', 'field-enter');
 
-let keyboardWrapper = document.createElement('div');
+const keyboardWrapper = document.createElement('div');
 keyboardWrapper.setAttribute('class', 'keyboard');
 
-let instruction = document.createElement('span');
+const instruction = document.createElement('span');
 instruction.textContent ='Change language : Ctrl + Alt \n or Win on mousedown';
 instruction.setAttribute('class','instruction');
 
-
-container.appendChild(textArea);
-container.appendChild(keyboardWrapper);
-container.appendChild(instruction);
-
-var isCaps=false;
-var isPressed = false;
-var lang = 'en';
-
-function changeShift() {
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].valueShift;
-		if (keys.flat()[i].valueShift == null) {
-			el.textContent = keys.flat()[i].value;
-		}
-	});
-};
-
-function changeShiftRu() {
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].valueShiftRu;
-		if (keys.flat()[i].valueShiftRu == null) {
-			el.textContent = keys.flat()[i].valueRu;
-		}
-	});
-};
-
-function changeShiftReturn() {
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].value;
-	});
-};
-
-function changeShiftReturnRu() {
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].valueRu;
-	});
-};
-
-function changeCaps() {
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].value.toUpperCase();
-		if (keys.flat()[i].valueShift == null) {
-			el.textContent = keys.flat()[i].value;
-		}
-	});
-	isCaps =true;
-};
-
-function changeCapsRu(){
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].valueRu.toUpperCase();
-		if (keys.flat()[i].valueShiftRu == null) {
-			el.textContent = keys.flat()[i].valueRu;
-		}
-	});
-	isCaps =true;
+function initContainer(){
+	const container = document.createElement('div');
+	container.setAttribute('class', 'container');
+	body.prepend(container);
+	container.appendChild(textArea);
+	container.appendChild(keyboardWrapper);
+	container.appendChild(instruction);
 }
+initContainer();
 
-function changeCapsReturn() {
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].value;
-	});
-	isCaps=false;
-};
 
-function changeCapsReturnRu() {
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].valueRu;
-	});
-	isCaps=false;
-};
-
-function changeLang(){
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].valueRu;
-		if (keys.flat()[i].valueShift == null) {
-			el.textContent = keys.flat()[i].value;
+let isCaps=false;
+let isPressed = false;
+let lang = 'en';
+let flag;
+function shiftHandler(flag){
+	if(flag == true){
+		if(lang == 'en'){
+			document.querySelectorAll('.button').forEach(function (el, i) {
+				el.textContent = keys.flat()[i].valueShift;
+				if (keys.flat()[i].valueShift == null) {
+					el.textContent = keys.flat()[i].value;
+				}
+			});
 		}
-	});
-	lang ='ru';
+		else if( lang == 'ru'){
+			document.querySelectorAll('.button').forEach(function (el, i) {
+				el.textContent = keys.flat()[i].valueShiftRu;
+				if (keys.flat()[i].valueShiftRu == null) {
+					el.textContent = keys.flat()[i].valueRu;
+				}
+			});
+		}
+	}
+	else if(flag == false){
+		if(lang =='en'){
+			document.querySelectorAll('.button').forEach(function (el, i) {
+				el.textContent = keys.flat()[i].value;
+			});
+		}
+		else if(lang == 'ru'){
+			document.querySelectorAll('.button').forEach(function (el, i) {
+				el.textContent = keys.flat()[i].valueRu;
+			});
+		}
+	}
 }
-function changeLangReturn(){
-	document.querySelectorAll('.button').forEach(function (el, i) {
-		el.textContent = keys.flat()[i].value;
-		if (keys.flat()[i].valueShift == null) {
+function capsHandler(){
+	if(isCaps==false){
+		if(lang == 'en'){
+			document.querySelectorAll('.button').forEach(function (el, i) {
+				el.textContent = keys.flat()[i].value.toUpperCase();
+				if (keys.flat()[i].valueShift == null) {
+					el.textContent = keys.flat()[i].value;
+				}
+			});
+			isCaps =true;
+		}
+		else if(lang == 'ru'){
+			document.querySelectorAll('.button').forEach(function (el, i) {
+				el.textContent = keys.flat()[i].valueRu.toUpperCase();
+				if (keys.flat()[i].valueShiftRu == null) {
+					el.textContent = keys.flat()[i].valueRu;
+				}
+			});
+			isCaps =true;
+		}
+	}
+	else if(isCaps == true){
+		if(lang == 'en'){
+			document.querySelectorAll('.button').forEach(function (el, i) {
+				el.textContent = keys.flat()[i].value;
+			});
+			isCaps=false;
+		}
+		else if(lang == 'ru'){
+			document.querySelectorAll('.button').forEach(function (el, i) {
+				el.textContent = keys.flat()[i].valueRu;
+			});
+			isCaps=false;
+		}
+	}
+}
+function langHandler(){
+	if(lang == 'en'){
+		document.querySelectorAll('.button').forEach(function (el, i) {
 			el.textContent = keys.flat()[i].valueRu;
-		}
-	});
-	lang ='en';
-}
-
-keys.forEach(line => {
-	let lines = document.createElement('div');
-	keyboardWrapper.appendChild(lines);
-	lines.setAttribute('class', 'lines');
-	line.forEach(key => {
-		let button = document.createElement('div');
-		lines.appendChild(button);
-		button.setAttribute('class', 'button');
-		button.setAttribute('id', key.code);
-		button.textContent = key.value;
-		if (key.code == 8 || key.code == 20 || key.code == "ShiftLeft" || key.code == "ShiftRight" || key.code == 13) {
-			button.classList.add('func-button');
-		}
-		if (key.code == 32) {
-			button.classList.add('space');
-		}
-
-		document.addEventListener('keydown', (e) => {
-			if (button.id == e.keyCode || button.id == e.code) {
-				textArea.blur();
-				button.classList.add('active');
-				if (key.code == 9) {
-					event.preventDefault();
-					textArea.value += '\t';
-				}
-				else if(e.code == "ShiftLeft"){
-					if (lang == 'en'){
-						changeShift();
-					}
-					else if(lang == 'ru'){
-						changeShiftRu();
-					}
-				}
-				else if(e.code == "ShiftRight"){
-					if (lang == 'en'){
-						changeShift();
-					}
-					else if(lang == 'ru'){
-						changeShiftRu();
-					}
-				}
-				else if (key.code == 8) {
-					textArea.focus();
-					textArea.value = textArea.value.slice(0,selectionStart);
-					textArea.setCursorPosition(textArea.selectionStart);
-				}
-				else if (key.code == 20) {
-					if(lang == 'en'){
-						if(isCaps == false){
-							changeCaps();
-						}
-						else if(isCaps == true){
-							changeCapsReturn();
-						}
-					}
-					if(lang == 'ru'){
-						if(isCaps == false){
-							changeCapsRu();
-						}
-						else if(isCaps == true){
-							changeCapsReturnRu();
-						}
-					}
-				}
-				else if (e.code=="ControlLeft") {
-					isPressed = true;
-					button.classList.add('active');
-				}
-				else if (e.code=="ControlRight") {
-					button.classList.add('active');
-				}
-				else if (key.code == 91) {
-					button.classList.add('active');
-				}
-				else if (e.code=="AltLeft") {
-					event.preventDefault();
-					if(isPressed == true){
-						if(lang == 'en'){
-							changeLang();
-						}
-						else if(lang == 'ru'){
-							changeLangReturn();
-						}
-					}
-					button.classList.add('active');
-				}
-				else if (e.code=="AltRight") {
-					event.preventDefault();
-					button.classList.add('active');
-				}
-				else if (key.code == 13) {
-					
-					textArea.value += '\n';
-					button.classList.add('active');
-				}
-				else if (key.code == 46) {
-					textArea.focus();
-					textArea.value = textArea.value.slice(selectionStart,1);
-					textArea.setCursorPosition(textArea.selectionStart);
-				}
-				else if(e.keyCode==17 && e.keyCode==16){
-					event.preventDefault();
-					changeLang();
-				}
-				else {
-					addChar(button.textContent);
-				}
-
-				if(key.code==37 || key.code == 38 || key.code == 39 || key.code==40){
-					event.preventDefault();
-				}
+			if (keys.flat()[i].valueShift == null) {
+				el.textContent = keys.flat()[i].value;
 			}
 		});
-
-		document.addEventListener('keyup', (e) => {
-			if (button.id == e.keyCode || button.id == e.code) {
-				button.classList.remove('active');
-			
-				if(e.code=="ShiftLeft"){
-					if(lang == 'en'){
-						changeShiftReturn();
-					}
-					else if(lang == 'ru'){
-						changeShiftReturnRu();
-					}
-				}
-				else if(e.code == "ShiftRight"){
-					if(lang == 'en'){
-						changeShiftReturn();
-					}
-					else if(lang == 'ru'){
-						changeShiftReturnRu();
-					}
-				}
+		lang ='ru';
+	}
+	else if(lang == 'ru'){
+		document.querySelectorAll('.button').forEach(function (el, i) {
+			el.textContent = keys.flat()[i].value;
+			if (keys.flat()[i].valueShift == null) {
+				el.textContent = keys.flat()[i].valueRu;
 			}
 		});
-	});
-});
-
+		lang ='en';
+	}
+}
 function addChar(e){
 	const startSelection = textArea.selectionStart;
 	const endSelection = textArea.selectionEnd;
@@ -342,43 +210,128 @@ function onBackspace() {
 	textArea.value = textArr.join('');
 	textArea.selectionEnd = startSelection - 1;
 };
-
 function onDelete() {
-	const startSelection = textarea.selectionStart;
-	const endSelection = textarea.selectionEnd;
-	const textArr = textarea.value.split('');
+	const startSelection = textArea.selectionStart;
+	const endSelection = textArea.selectionEnd;
+	const textArr = textArea.value.split('');
 	if (endSelection - startSelection > 0) {
 		textArr.splice(startSelection, endSelection - startSelection);
 	} 
 	else {
 		textArr.splice(endSelection, 1);
 	}
-	textarea.value = textArr.join('');
-	textarea.selectionEnd = startSelection;
-  };
+	textArea.value = textArr.join('');
+	textArea.selectionEnd = startSelection;
+};
+keys.forEach(line => {
+	let lines = document.createElement('div');
+	keyboardWrapper.appendChild(lines);
+	lines.setAttribute('class', 'lines');
+	line.forEach(key => {
+		let button = document.createElement('div');
+		lines.appendChild(button);
+		button.setAttribute('class', 'button');
+		button.setAttribute('id', key.code);
+		button.textContent = key.value;
+		const enter =13, caps = 20, backspace = 8, space = 32;
+		if (key.code == enter || key.code == caps || key.code == "ShiftLeft" || key.code == "ShiftRight" || key.code == backspace) {
+			button.classList.add('func-button');
+		}
+		if (key.code == space) {
+			button.classList.add('space');
+		}
+	});
+});
+
+const buttons = document.getElementsByClassName('button');
+
+document.addEventListener('keydown', (e) => {
+	for(let i=0;i<buttons.length;i++){
+		if (buttons[i].id == e.keyCode || buttons[i].id == e.code) {
+			textArea.blur();
+			buttons[i].classList.add('active');
+			if (buttons[i].id == 9) {
+				event.preventDefault();
+				textArea.value += '\t';
+				isPressed = false;
+			}
+			else if(e.code == "ShiftLeft" || e.code == "ShiftRight"){
+				flag =true;
+				shiftHandler(flag);
+				isPressed = false;
+			}
+			else if (buttons[i].id == 8) {
+				textArea.focus();
+				isPressed = false;
+			}
+			else if (buttons[i].id == 20) {
+				capsHandler();
+				isPressed = false;
+			}
+			else if (e.code=="ControlLeft") {
+				isPressed = true;
+				buttons[i].classList.add('active');
+			}
+			else if (e.code=="ControlRight") {
+				buttons[i].classList.add('active');
+				isPressed = false;
+			}
+			else if (buttons[i].id == 91) {
+				buttons[i].classList.add('active');
+				isPressed = false;
+			}
+			else if (e.code=="AltLeft") {
+				event.preventDefault();
+				if(isPressed == true){
+					langHandler();
+					isPressed = false;
+				}
+				buttons[i].classList.add('active');
+			}
+			else if (e.code=="AltRight") {
+				event.preventDefault();
+				buttons[i].classList.add('active');
+				isPressed = false;
+			}
+			else if (buttons[i].id == 13) {
+				textArea.value += '\n';
+				buttons[i].classList.add('active');
+				isPressed = false;
+			}
+			else if (buttons[i].id == 46) {
+				textArea.focus();	
+				isPressed = false;
+			}
+			else {
+				addChar(buttons[i].textContent);
+				isPressed = false;
+			}
+			if(buttons[i].id==37 ||buttons[i].id == 38 || buttons[i].id == 39 || buttons[i].id==40){
+				event.preventDefault();
+				isPressed = false;
+			}
+		}
+	}
+});
+
+document.addEventListener('keyup', (e) => {
+	for(let i =0;i<buttons.length;i++){
+		if (buttons[i].id == e.keyCode || buttons[i].id == e.code) {
+			buttons[i].classList.remove('active');
+			if(e.code=="ShiftLeft" || e.code == "ShiftRight"){
+				flag=false;
+				shiftHandler(flag);
+			}
+		}
+	}
+});
 
 document.addEventListener('mousedown',(e)=>{
 	e.target.tagName = 'div';
 	if(e.target.className.indexOf('button') !=-1){
 		if(e.target.id == 20){
-			if(isCaps == false){
-				e.target.classList.add('active');
-				if(lang == 'en'){
-					changeCaps();
-				}
-				else if(lang == 'ru'){
-					changeCapsRu();
-				}
-			}
-			else if(isCaps == true){
-				e.target.classList.add('active');
-				if(lang =='en'){
-					changeCapsReturn();
-				}
-				else if(lang =='ru'){
-					changeCapsReturnRu();
-				}
-			}
+			capsHandler();
+			e.target.classList.add('active');
 		}
 		else if (e.target.id == 9){
 			e.target.classList.add('active');
@@ -386,12 +339,8 @@ document.addEventListener('mousedown',(e)=>{
 		}
 		else if (e.target.id == "ShiftLeft" || e.target.id == "ShiftRight"){
 			e.target.classList.add('active');
-			if(lang == 'en'){
-				changeShift();
-			}
-			else if(lang == 'ru'){
-				changeShiftRu();
-			}
+			flag =true;
+			shiftHandler(flag);
 		}
 		else if (e.target.id == "AltLeft" || e.target.id == "AltRight" || e.target.id == "ControlLeft" || e.target.id == "ControlRight"){
 			e.target.classList.add('active');
@@ -410,12 +359,7 @@ document.addEventListener('mousedown',(e)=>{
 		}
 		else if (e.target.id == 91){
 			e.target.classList.add('active');
-			if(lang == 'en'){
-				changeLang();
-			}
-			else if(lang == 'ru'){
-				changeLangReturn();
-			}
+			langHandler();
 		}
 		else {
 			e.target.classList.add('active');
@@ -431,12 +375,8 @@ document.addEventListener('mouseup',(e)=>{
 		}
 		else if (e.target.id == "ShiftLeft" || e.target.id == "ShiftRight"){
 			e.target.classList.remove('active');
-			if(lang == 'en'){
-				changeShiftReturn();
-			}
-			else if(lang == 'ru'){
-				changeShiftReturnRu();
-			}
+			flag =false;
+			shiftHandler(flag);
 		}
 		else if (e.target.id == "AltLeft" || e.target.id == "AltRight" || e.target.id == "ControlLeft" || e.target.id == "ControlRight"){
 			e.target.classList.remove('active');
