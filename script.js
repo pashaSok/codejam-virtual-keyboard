@@ -64,6 +64,12 @@ const keys = [
 	{ value: 'Ctrl', code: 'ControlRight',valueRu :'Ctrl'}]
 ];
 
+const backspaceCode = 8;
+const tabCode = 9;
+const windowsCode=91;
+const delCode = 46;
+const enterCode =13;
+const capsLockCode = 20;
 
 const body = document.getElementsByTagName('body')[0];
 const textArea = document.createElement('textarea');
@@ -254,7 +260,7 @@ document.addEventListener('keydown',(e)=>{
 			const keyboardButtonCode = e.code;
 			textArea.blur();
 			switch(buttonId == e.keyCode || buttonId == keyboardButtonCode){
-				case buttonId == 9:
+				case buttonId == tabCode:
 					event.preventDefault();
 					addChar('\t');
 					isPressed = false;
@@ -275,11 +281,11 @@ document.addEventListener('keydown',(e)=>{
 					buttonAddClass;
 					isPressed = false;
 					break;
-				case buttonId == 20:
+				case buttonId == capsLockCode:
 					capsHandler();
 					buttonAddClass;
 					break;
-				case buttonId == 91:
+				case buttonId == windowsCode:
 					event.preventDefault();
 					buttonAddClass;
 					break;
@@ -294,15 +300,15 @@ document.addEventListener('keydown',(e)=>{
 				case keyboardButtonCode == "AltRight":
 					buttonAddClass;
 					break;
-				case buttonId == 8:
+				case buttonId == backspaceCode:
 					textArea.focus();
 					buttonAddClass;
 					break;
-				case buttonId == 46:
+				case buttonId == delCode:
 					textArea.focus();
 					buttonAddClass;
 					break;
-				case buttonId == 13:
+				case buttonId == enterCode:
 					addChar('\n');
 					buttonAddClass;
 					break;
@@ -328,31 +334,6 @@ document.addEventListener('keyup',(e)=>{
 					shiftHandler(flag);
 					buttonRemoveClass;
 					break;
-				case keyboardButtonCode == "ControlLeft":
-					isPressed = true;
-					buttonRemoveClass;
-					break;
-				case keyboardButtonCode == "ControlRight":
-					buttonRemoveClass;
-					break;
-				case buttonId == 20:
-					buttonRemoveClass;
-					break;
-				case keyboardButtonCode == "AltLeft":
-					buttonRemoveClass;
-					break;
-				case keyboardButtonCode == "AltRight":
-					buttonRemoveClass;
-					break;
-				case buttonId == 8:
-					buttonRemoveClass;
-					break;
-				case buttonId == 46:
-					buttonRemoveClass;
-					break;
-				case buttonId == 13:
-					buttonRemoveClass;
-					break;
 				default:
 					buttonRemoveClass;
 			}
@@ -366,11 +347,11 @@ document.addEventListener('mousedown',(e)=>{
 		const buttonId = e.target.id;
 		const addButtonClass = e.target.classList.add('active');
 		switch(e.target.className.indexOf('button') !=-1){
-			case buttonId == 20:
+			case buttonId == capsLockCode:
 				capsHandler();
 				addButtonClass;
 				break;
-			case buttonId == 9:
+			case buttonId == tabCode:
 				addButtonClass;
 				addChar('\t');
 				break;
@@ -386,19 +367,19 @@ document.addEventListener('mousedown',(e)=>{
 			case buttonId == "ControlRight":
 				addButtonClass;
 				break;
-			case buttonId == 13:
+			case buttonId == enterCode:
 				addButtonClass;
 				addChar('\n');
 				break;
-			case buttonId == 8:
+			case buttonId == backspaceCode:
 				addButtonClass;
 				backspaceHandler();
 				break;
-			case buttonId == 46:
+			case buttonId == delCode:
 				addButtonClass;
 				deleteHandler();
 				break;
-			case buttonId == 91:
+			case buttonId == windowsCode:
 				addButtonClass;
 				langHandler();
 				break;
@@ -414,35 +395,11 @@ document.addEventListener('mouseup',(e)=>{
 		const buttonId = e.target.id;
 		const removeButtonClass = e.target.classList.remove('active');
 		switch(e.target.className.indexOf('button') !=-1){
-			case buttonId == 20:
-				removeButtonClass
-				break;
-			case buttonId == 9:
-				removeButtonClass
-				break;
 			case buttonId == "ShiftLeft":
 			case buttonId == "ShiftRight":
 				removeButtonClass
 				flag =false;
 				shiftHandler(flag);
-				break;
-			case buttonId == "AltLeft":
-			case buttonId == "AltRight":
-			case buttonId == "ControlLeft":
-			case buttonId == "ControlRight":
-				removeButtonClass
-				break;
-			case buttonId == 13:
-				removeButtonClass
-				break;
-			case buttonId == 8:
-				removeButtonClass
-				break;
-			case buttonId == 46:
-				removeButtonClass
-				break;
-			case buttonId == 91:
-				removeButtonClass
 				break;
 			default:
 				removeButtonClass
