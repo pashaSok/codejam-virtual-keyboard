@@ -41,7 +41,7 @@ const keys = [
 	{ value: ';', valueShift: ':', code: 186 ,valueRu :'ж', valueShiftRu: 'Ж'}, 
 	{ value: '\'', valueShift: '"', code: 222 ,valueRu :'э', valueShiftRu: 'Э'},
 	{ value: 'Enter', code: 13 ,valueRu :'Enter'}],
-	[{ value: 'Shift', code: 'ShiftLeft',valueRu :'Shift'}, 
+	[{ value: 'Shift' , code: "ShiftLeft" ,valueRu :'Shift'}, 
 	{ value: 'z', valueShift: 'Z', code: 90 ,valueRu :'я', valueShiftRu: 'Я'}, 
 	{ value: 'x', valueShift: 'X', code: 88 ,valueRu :'ч', valueShiftRu: 'Ч'},
 	{ value: 'c', valueShift: 'C', code: 67 ,valueRu :'с', valueShiftRu: 'С'}, 
@@ -51,7 +51,7 @@ const keys = [
 	{ value: 'm', valueShift: 'M', code: 77 ,valueRu :'ь', valueShiftRu: 'Ь'}, 
 	{ value: ',', valueShift: '<', code: 188 ,valueRu :'б', valueShiftRu: 'Б'},
 	{ value: '.', valueShift: '>', code: 190 ,valueRu :'ю', valueShiftRu: 'Ю'}, 
-	{ value: '/', valueShift: '?', code: 186 ,valueRu :'.', valueShiftRu: ','}, 
+	{ value: '/', valueShift: '?', code: 191 ,valueRu :'.', valueShiftRu: ','}, 
 	{ value: '▲', code: 38 ,valueRu :'▲'}, 
 	{ value: 'Shift', code: "ShiftRight" ,valueRu :'Shift'}],
 	[{ value: 'Ctrl', code: 'ControlLeft' ,valueRu :'Ctrl'}, 
@@ -60,7 +60,7 @@ const keys = [
 	{ value: ' ', code: 32 ,valueRu :' '},
 	{ value: 'Alt', code: 'AltRight',valueRu :'Alt'}, 
 	{ value: '◄', code: 37 ,valueRu :'◄'}, { value: '▼', code: 40 ,valueRu :'▼'},
-	 { value: '►', code: 39 ,valueRu :'►'},
+	{ value: '►', code: 39 ,valueRu :'►'},
 	{ value: 'Ctrl', code: 'ControlRight',valueRu :'Ctrl'}]
 ];
 
@@ -91,6 +91,7 @@ let isCaps=false;
 let isPressed = false;
 let lang = 'en';
 let flag;
+
 function shiftHandler(flag){
 	if(flag == true){
 		if(lang == 'en'){
@@ -197,7 +198,7 @@ function addChar(e){
 		textArea.value += e;
   }
 }
-function onBackspace() {
+function backspaceHandler() {
 	const startSelection = textArea.selectionStart;
 	const endSelection = textArea.selectionEnd;
 	const textArr = textArea.value.split('');
@@ -209,8 +210,8 @@ function onBackspace() {
 	}
 	textArea.value = textArr.join('');
 	textArea.selectionEnd = startSelection - 1;
-};
-function onDelete() {
+}
+function deleteHandler() {
 	const startSelection = textArea.selectionStart;
 	const endSelection = textArea.selectionEnd;
 	const textArr = textArea.value.split('');
@@ -222,7 +223,7 @@ function onDelete() {
 	}
 	textArea.value = textArr.join('');
 	textArea.selectionEnd = startSelection;
-};
+}
 keys.forEach(line => {
 	let lines = document.createElement('div');
 	keyboardWrapper.appendChild(lines);
@@ -245,6 +246,115 @@ keys.forEach(line => {
 
 const buttons = document.getElementsByClassName('button');
 
+document.addEventListener('keydown',(e)=>{
+	for(let i=0;i<buttons.length;i++){
+		if (buttons[i].id == e.keyCode || buttons[i].id == e.code){
+			textArea.blur();
+			switch(buttons[i].id == e.keyCode || buttons[i].id == e.code){
+				case buttons[i].id == 9:
+					console.log(buttons[i].id);
+					event.preventDefault();
+					addChar('\t');
+					isPressed = false;
+					buttons[i].classList.add('active');
+					break;
+				case e.code == "ShiftLeft":
+				case e.code == "ShiftRight":
+					buttons[i].classList.add('active');
+					flag =true;
+					shiftHandler(flag);
+					isPressed = false;
+					break;
+				case e.code == "ControlLeft":
+					isPressed = true;
+					buttons[i].classList.add('active');
+					break;
+				case e.code == "ControlRight":
+					buttons[i].classList.add('active');
+					isPressed = false;
+					break;
+				case buttons[i].id == 20:
+					capsHandler();
+					buttons[i].classList.add('active');
+					break;
+				case buttons[i].id == 91:
+					event.preventDefault();
+					buttons[i].classList.add('active');
+					break;
+				case e.code == "AltLeft":
+					buttons[i].classList.add('active');
+					event.preventDefault();
+					if(isPressed){
+						langHandler();
+					}
+					isPressed = false;
+					break;
+				case e.code == "AltRight":
+					buttons[i].classList.add('active');
+					break;
+				case buttons[i].id == 8:
+					textArea.focus();
+					buttons[i].classList.add('active');
+					break;
+				case buttons[i].id == 46:
+					textArea.focus();
+					buttons[i].classList.add('active');
+					break;
+				case buttons[i].id == 13:
+					addChar('\n');
+					buttons[i].classList.add('active');
+					break;
+				default:
+					addChar(buttons[i].textContent);
+					buttons[i].classList.add('active');
+					isPressed = false;
+			}
+		}
+	}
+});
+document.addEventListener('keyup',(e)=>{
+	for(let i=0;i<buttons.length;i++){
+		if (buttons[i].id == e.keyCode || buttons[i].id == e.code){
+			textArea.blur();
+			switch(buttons[i].id == e.keyCode || buttons[i].id == e.code){
+				case e.code == "ShiftLeft":
+				case e.code == "ShiftRight":
+					flag =false;
+					shiftHandler(flag);
+					buttons[i].classList.remove('active');
+					break;
+				case e.code == "ControlLeft":
+					isPressed = true;
+					buttons[i].classList.remove('active');
+					break;
+				case e.code == "ControlRight":
+					buttons[i].classList.remove('active');
+					break;
+				case buttons[i].id == 20:
+					buttons[i].classList.remove('active');
+					break;
+				case e.code == "AltLeft":
+					buttons[i].classList.remove('active');
+					break;
+				case e.code == "AltRight":
+					buttons[i].classList.remove('active');
+					break;
+				case buttons[i].id == 8:
+					buttons[i].classList.remove('active');
+					break;
+				case buttons[i].id == 46:
+					buttons[i].classList.remove('active');
+					break;
+				case buttons[i].id == 13:
+					buttons[i].classList.remove('active');
+					break;
+				default:
+					buttons[i].classList.remove('active');
+			}
+		}
+	}
+});
+/*
 document.addEventListener('keydown', (e) => {
 	for(let i=0;i<buttons.length;i++){
 		if (buttons[i].id == e.keyCode || buttons[i].id == e.code) {
@@ -325,7 +435,7 @@ document.addEventListener('keyup', (e) => {
 		}
 	}
 });
-
+*/
 document.addEventListener('mousedown',(e)=>{
 	e.target.tagName = 'div';
 	if(e.target.className.indexOf('button') !=-1){
@@ -351,11 +461,11 @@ document.addEventListener('mousedown',(e)=>{
 		}
 		else if(e.target.id == 8){
 			e.target.classList.add('active');
-			onBackspace();
+			backspaceHandler();
 		}
 		else if(e.target.id == 46){
 			e.target.classList.add('active');
-			onDelete();
+			deleteHandler();
 		}
 		else if (e.target.id == 91){
 			e.target.classList.add('active');
