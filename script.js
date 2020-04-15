@@ -249,64 +249,66 @@ const buttons = document.getElementsByClassName('button');
 document.addEventListener('keydown',(e)=>{
 	for(let i=0;i<buttons.length;i++){
 		if (buttons[i].id == e.keyCode || buttons[i].id == e.code){
+			const buttonId = buttons[i].id;
+			const buttonAddClass = buttons[i].classList.add('active');
+			const keyboardButtonCode = e.code;
 			textArea.blur();
-			switch(buttons[i].id == e.keyCode || buttons[i].id == e.code){
-				case buttons[i].id == 9:
-					console.log(buttons[i].id);
+			switch(buttonId == e.keyCode || buttonId == keyboardButtonCode){
+				case buttonId == 9:
 					event.preventDefault();
 					addChar('\t');
 					isPressed = false;
-					buttons[i].classList.add('active');
+					buttonAddClass;
 					break;
-				case e.code == "ShiftLeft":
-				case e.code == "ShiftRight":
-					buttons[i].classList.add('active');
+				case keyboardButtonCode == "ShiftLeft":
+				case keyboardButtonCode == "ShiftRight":
+					buttonAddClass;
 					flag =true;
 					shiftHandler(flag);
 					isPressed = false;
 					break;
-				case e.code == "ControlLeft":
+				case keyboardButtonCode == "ControlLeft":
 					isPressed = true;
-					buttons[i].classList.add('active');
+					buttonAddClass;
 					break;
-				case e.code == "ControlRight":
-					buttons[i].classList.add('active');
+				case keyboardButtonCode == "ControlRight":
+					buttonAddClass;
 					isPressed = false;
 					break;
-				case buttons[i].id == 20:
+				case buttonId == 20:
 					capsHandler();
-					buttons[i].classList.add('active');
+					buttonAddClass;
 					break;
-				case buttons[i].id == 91:
+				case buttonId == 91:
 					event.preventDefault();
-					buttons[i].classList.add('active');
+					buttonAddClass;
 					break;
-				case e.code == "AltLeft":
-					buttons[i].classList.add('active');
+				case keyboardButtonCode == "AltLeft":
+					buttonAddClass;
 					event.preventDefault();
 					if(isPressed){
 						langHandler();
 					}
 					isPressed = false;
 					break;
-				case e.code == "AltRight":
-					buttons[i].classList.add('active');
+				case keyboardButtonCode == "AltRight":
+					buttonAddClass;
 					break;
-				case buttons[i].id == 8:
+				case buttonId == 8:
 					textArea.focus();
-					buttons[i].classList.add('active');
+					buttonAddClass;
 					break;
-				case buttons[i].id == 46:
+				case buttonId == 46:
 					textArea.focus();
-					buttons[i].classList.add('active');
+					buttonAddClass;
 					break;
-				case buttons[i].id == 13:
+				case buttonId == 13:
 					addChar('\n');
-					buttons[i].classList.add('active');
+					buttonAddClass;
 					break;
 				default:
 					addChar(buttons[i].textContent);
-					buttons[i].classList.add('active');
+					buttonAddClass;
 					isPressed = false;
 			}
 		}
@@ -315,197 +317,137 @@ document.addEventListener('keydown',(e)=>{
 document.addEventListener('keyup',(e)=>{
 	for(let i=0;i<buttons.length;i++){
 		if (buttons[i].id == e.keyCode || buttons[i].id == e.code){
+			const buttonId = buttons[i].id;
+			const buttonRemoveClass = buttons[i].classList.remove('active');
+			const keyboardButtonCode = e.code;
 			textArea.blur();
-			switch(buttons[i].id == e.keyCode || buttons[i].id == e.code){
-				case e.code == "ShiftLeft":
-				case e.code == "ShiftRight":
+			switch(buttonId == e.keyCode || buttonId == keyboardButtonCode){
+				case keyboardButtonCode == "ShiftLeft":
+				case keyboardButtonCode == "ShiftRight":
 					flag =false;
 					shiftHandler(flag);
-					buttons[i].classList.remove('active');
+					buttonRemoveClass;
 					break;
-				case e.code == "ControlLeft":
+				case keyboardButtonCode == "ControlLeft":
 					isPressed = true;
-					buttons[i].classList.remove('active');
+					buttonRemoveClass;
 					break;
-				case e.code == "ControlRight":
-					buttons[i].classList.remove('active');
+				case keyboardButtonCode == "ControlRight":
+					buttonRemoveClass;
 					break;
-				case buttons[i].id == 20:
-					buttons[i].classList.remove('active');
+				case buttonId == 20:
+					buttonRemoveClass;
 					break;
-				case e.code == "AltLeft":
-					buttons[i].classList.remove('active');
+				case keyboardButtonCode == "AltLeft":
+					buttonRemoveClass;
 					break;
-				case e.code == "AltRight":
-					buttons[i].classList.remove('active');
+				case keyboardButtonCode == "AltRight":
+					buttonRemoveClass;
 					break;
-				case buttons[i].id == 8:
-					buttons[i].classList.remove('active');
+				case buttonId == 8:
+					buttonRemoveClass;
 					break;
-				case buttons[i].id == 46:
-					buttons[i].classList.remove('active');
+				case buttonId == 46:
+					buttonRemoveClass;
 					break;
-				case buttons[i].id == 13:
-					buttons[i].classList.remove('active');
+				case buttonId == 13:
+					buttonRemoveClass;
 					break;
 				default:
-					buttons[i].classList.remove('active');
-			}
-		}
-	}
-});
-/*
-document.addEventListener('keydown', (e) => {
-	for(let i=0;i<buttons.length;i++){
-		if (buttons[i].id == e.keyCode || buttons[i].id == e.code) {
-			textArea.blur();
-			buttons[i].classList.add('active');
-			if (buttons[i].id == 9) {
-				event.preventDefault();
-				textArea.value += '\t';
-				isPressed = false;
-			}
-			else if(e.code == "ShiftLeft" || e.code == "ShiftRight"){
-				flag =true;
-				shiftHandler(flag);
-				isPressed = false;
-			}
-			else if (buttons[i].id == 8) {
-				textArea.focus();
-				isPressed = false;
-			}
-			else if (buttons[i].id == 20) {
-				capsHandler();
-				isPressed = false;
-			}
-			else if (e.code=="ControlLeft") {
-				isPressed = true;
-				buttons[i].classList.add('active');
-			}
-			else if (e.code=="ControlRight") {
-				buttons[i].classList.add('active');
-				isPressed = false;
-			}
-			else if (buttons[i].id == 91) {
-				buttons[i].classList.add('active');
-				isPressed = false;
-			}
-			else if (e.code=="AltLeft") {
-				event.preventDefault();
-				if(isPressed == true){
-					langHandler();
-					isPressed = false;
-				}
-				buttons[i].classList.add('active');
-			}
-			else if (e.code=="AltRight") {
-				event.preventDefault();
-				buttons[i].classList.add('active');
-				isPressed = false;
-			}
-			else if (buttons[i].id == 13) {
-				textArea.value += '\n';
-				buttons[i].classList.add('active');
-				isPressed = false;
-			}
-			else if (buttons[i].id == 46) {
-				textArea.focus();	
-				isPressed = false;
-			}
-			else {
-				addChar(buttons[i].textContent);
-				isPressed = false;
-			}
-			if(buttons[i].id==37 ||buttons[i].id == 38 || buttons[i].id == 39 || buttons[i].id==40){
-				event.preventDefault();
-				isPressed = false;
+					buttonRemoveClass;
 			}
 		}
 	}
 });
 
-document.addEventListener('keyup', (e) => {
-	for(let i =0;i<buttons.length;i++){
-		if (buttons[i].id == e.keyCode || buttons[i].id == e.code) {
-			buttons[i].classList.remove('active');
-			if(e.code=="ShiftLeft" || e.code == "ShiftRight"){
-				flag=false;
-				shiftHandler(flag);
-			}
-		}
-	}
-});
-*/
 document.addEventListener('mousedown',(e)=>{
 	e.target.tagName = 'div';
 	if(e.target.className.indexOf('button') !=-1){
-		if(e.target.id == 20){
-			capsHandler();
-			e.target.classList.add('active');
-		}
-		else if (e.target.id == 9){
-			e.target.classList.add('active');
-			textArea.value+='\t';
-		}
-		else if (e.target.id == "ShiftLeft" || e.target.id == "ShiftRight"){
-			e.target.classList.add('active');
-			flag =true;
-			shiftHandler(flag);
-		}
-		else if (e.target.id == "AltLeft" || e.target.id == "AltRight" || e.target.id == "ControlLeft" || e.target.id == "ControlRight"){
-			e.target.classList.add('active');
-		}
-		else if (e.target.id == 13){
-			e.target.classList.add('active');
-			textArea.value+='\n';
-		}
-		else if(e.target.id == 8){
-			e.target.classList.add('active');
-			backspaceHandler();
-		}
-		else if(e.target.id == 46){
-			e.target.classList.add('active');
-			deleteHandler();
-		}
-		else if (e.target.id == 91){
-			e.target.classList.add('active');
-			langHandler();
-		}
-		else {
-			e.target.classList.add('active');
-			addChar(e.target.textContent);
+		const buttonId = e.target.id;
+		const addButtonClass = e.target.classList.add('active');
+		switch(e.target.className.indexOf('button') !=-1){
+			case buttonId == 20:
+				capsHandler();
+				addButtonClass;
+				break;
+			case buttonId == 9:
+				addButtonClass;
+				addChar('\t');
+				break;
+			case buttonId == "ShiftLeft":
+			case buttonId == "ShiftRight":
+				addButtonClass;
+				flag =true;
+				shiftHandler(flag);
+				break;
+			case buttonId == "AltLeft":
+			case buttonId == "AltRight":
+			case buttonId == "ControlLeft":
+			case buttonId == "ControlRight":
+				addButtonClass;
+				break;
+			case buttonId == 13:
+				addButtonClass;
+				addChar('\n');
+				break;
+			case buttonId == 8:
+				addButtonClass;
+				backspaceHandler();
+				break;
+			case buttonId == 46:
+				addButtonClass;
+				deleteHandler();
+				break;
+			case buttonId == 91:
+				addButtonClass;
+				langHandler();
+				break;
+			default:
+				addButtonClass;
+ 				addChar(e.target.textContent);
 		}
 	}
 });
 document.addEventListener('mouseup',(e)=>{
 	e.target.tagName = 'div';
 	if(e.target.className.indexOf('button') !=-1){
-		if (e.target.id == 9){
-			e.target.classList.remove('active');
-		}
-		else if (e.target.id == "ShiftLeft" || e.target.id == "ShiftRight"){
-			e.target.classList.remove('active');
-			flag =false;
-			shiftHandler(flag);
-		}
-		else if (e.target.id == "AltLeft" || e.target.id == "AltRight" || e.target.id == "ControlLeft" || e.target.id == "ControlRight"){
-			e.target.classList.remove('active');
-		}
-		else if (e.target.id == 13){
-			e.target.classList.remove('active');
-		}
-		else if(e.target.id == 8){
-			e.target.classList.remove('active');
-		}
-		else if(e.target.id == 46){
-			e.target.classList.remove('active');
-		}
-		else if (e.target.id == 91){
-			e.target.classList.remove('active');
-		}
-		else {
-			e.target.classList.remove('active');
+		const buttonId = e.target.id;
+		const removeButtonClass = e.target.classList.remove('active');
+		switch(e.target.className.indexOf('button') !=-1){
+			case buttonId == 20:
+				removeButtonClass
+				break;
+			case buttonId == 9:
+				removeButtonClass
+				break;
+			case buttonId == "ShiftLeft":
+			case buttonId == "ShiftRight":
+				removeButtonClass
+				flag =false;
+				shiftHandler(flag);
+				break;
+			case buttonId == "AltLeft":
+			case buttonId == "AltRight":
+			case buttonId == "ControlLeft":
+			case buttonId == "ControlRight":
+				removeButtonClass
+				break;
+			case buttonId == 13:
+				removeButtonClass
+				break;
+			case buttonId == 8:
+				removeButtonClass
+				break;
+			case buttonId == 46:
+				removeButtonClass
+				break;
+			case buttonId == 91:
+				removeButtonClass
+				break;
+			default:
+				removeButtonClass
+				break;
 		}
 	}
-});
+})
 
